@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Cricket Game</title>
+  <style>
+    body{
+      text-align:center;
+    }
+
+    button{
+      margin: 15px;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 2px solid black;
+      background-color: #f5f5f5;
+    }
+
+    button:hover{
+      background-color: #ddd;
+    }
+
+    img{
+      width: 80px;
+      height: 80px;
+      display: block;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="Heading"><h1>Bat Ball Game</h1></div>
+   <button onclick=" let comp_choice=comp_choi(); let res=result(comp_choice,'Bat'); let sc=score; display('Bat',comp_choice,res,sc)"><img src='bat.png'>Bat</button>
+   <button onclick=" let comp_choice1=comp_choi(); let res1=result(comp_choice1,'Ball'); let sc1=score;display('Ball',comp_choice1,res1,sc1)"><img src='ball.png'>Ball</button>
+   <button onclick=" let comp_choice2=comp_choi(); let res2=result(comp_choice2,'stump'); let sc2=score;display('stump',comp_choice2,res2,sc2)"><img src='stump.png'>Stump</button> 
+    <h3 id="user"></h3>
+     <h3 id="computer"></h3>
+     <h3 id="result"></h3>
+     <h3 id="score"></h3>
+    <script>
+      let score={
+      win:0,
+      loss:0,
+      draw:0,
+      };
+     function comp_choi()
+     {
+      let comp_choi='';
+      let a=Math.random()*3;
+      if(a>=0&&a<=1)comp_choi='Bat';
+      else if(a>=0&&a<=1)comp_choi='Ball';
+    else comp_choi='stump';
+    return comp_choi;
+     }
+     function result(comp_choi,user_choi)
+     {
+      let result='';
+      if(comp_choi=='Bat')
+     {
+      if(user_choi=='Bat')result='Tie',score.draw++;
+      else if(user_choi=='Ball')result='computer',score.loss++;
+      else  result='user',score.win++;
+     }
+     if(comp_choi=='Ball')
+     {
+      if(user_choi=='Bat')result='user',score.win++;
+      else if(user_choi=='Ball')result='Tie',score.draw++;
+      else  result='computer',score.loss++;
+     }
+     if(comp_choi=='stump')
+     {
+      if(user_choi=='Bat')result='computer',score.loss++;
+      else if(user_choi=='Ball')result='user',score.win++;
+      else  result='Tie',score.draw++;
+     }
+     return result;
+     }
+     function display(user_choi,comp_choi,result,score)
+     {
+      document.querySelector('#user').innerHTML=`user chooses ${user_choi}`;
+      document.querySelector('#computer').innerHTML=`computer chooses ${comp_choi}`;
+      document.querySelector('#result').innerHTML=`winner is ${result}`;
+      document.querySelector('#score').innerHTML=`win is ${score.win} loss is ${score.loss} draw is ${score.draw}`;
+
+     }
+    </script>
+</body>
+</html>
